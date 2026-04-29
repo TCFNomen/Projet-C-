@@ -36,14 +36,16 @@
             this.label2 = new System.Windows.Forms.Label();
             this.dataGridReservations = new System.Windows.Forms.DataGridView();
             this.label3 = new System.Windows.Forms.Label();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridMenu)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridReservations)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.SuspendLayout();
             // 
             // btn_Res
             // 
-            this.btn_Res.Location = new System.Drawing.Point(51, 88);
-            this.btn_Res.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btn_Res.Location = new System.Drawing.Point(47, 124);
+            this.btn_Res.Margin = new System.Windows.Forms.Padding(2);
             this.btn_Res.Name = "btn_Res";
             this.btn_Res.Size = new System.Drawing.Size(130, 49);
             this.btn_Res.TabIndex = 0;
@@ -54,7 +56,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(42, 43);
+            this.label1.Location = new System.Drawing.Point(38, 79);
             this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(150, 13);
@@ -63,8 +65,8 @@
             // 
             // btn_Cancel
             // 
-            this.btn_Cancel.Location = new System.Drawing.Point(51, 141);
-            this.btn_Cancel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btn_Cancel.Location = new System.Drawing.Point(47, 177);
+            this.btn_Cancel.Margin = new System.Windows.Forms.Padding(2);
             this.btn_Cancel.Name = "btn_Cancel";
             this.btn_Cancel.Size = new System.Drawing.Size(130, 49);
             this.btn_Cancel.TabIndex = 2;
@@ -74,8 +76,8 @@
             // 
             // btn_Cons
             // 
-            this.btn_Cons.Location = new System.Drawing.Point(51, 195);
-            this.btn_Cons.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btn_Cons.Location = new System.Drawing.Point(47, 231);
+            this.btn_Cons.Margin = new System.Windows.Forms.Padding(2);
             this.btn_Cons.Name = "btn_Cons";
             this.btn_Cons.Size = new System.Drawing.Size(130, 49);
             this.btn_Cons.TabIndex = 3;
@@ -87,7 +89,7 @@
             // 
             this.dataGridMenu.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridMenu.Location = new System.Drawing.Point(347, 43);
-            this.dataGridMenu.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.dataGridMenu.Margin = new System.Windows.Forms.Padding(2);
             this.dataGridMenu.Name = "dataGridMenu";
             this.dataGridMenu.RowHeadersWidth = 51;
             this.dataGridMenu.RowTemplate.Height = 24;
@@ -108,7 +110,7 @@
             // 
             this.dataGridReservations.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridReservations.Location = new System.Drawing.Point(347, 222);
-            this.dataGridReservations.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.dataGridReservations.Margin = new System.Windows.Forms.Padding(2);
             this.dataGridReservations.Name = "dataGridReservations";
             this.dataGridReservations.RowHeadersWidth = 51;
             this.dataGridReservations.RowTemplate.Height = 24;
@@ -125,11 +127,22 @@
             this.label3.TabIndex = 7;
             this.label3.Text = "Mes réservations";
             // 
+            // pictureBox2
+            // 
+            this.pictureBox2.Image = global::Projet_C_.Properties.Resources.Screenshot_2026_04_26_213309;
+            this.pictureBox2.Location = new System.Drawing.Point(11, 11);
+            this.pictureBox2.Margin = new System.Windows.Forms.Padding(2);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(96, 48);
+            this.pictureBox2.TabIndex = 18;
+            this.pictureBox2.TabStop = false;
+            // 
             // EtudiantsDashboard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(916, 447);
+            this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.dataGridReservations);
             this.Controls.Add(this.label2);
@@ -138,11 +151,12 @@
             this.Controls.Add(this.btn_Cancel);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btn_Res);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "EtudiantsDashboard";
             this.Text = "EtudiantsDashboard";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridMenu)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridReservations)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -158,5 +172,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.DataGridView dataGridReservations;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.PictureBox pictureBox2;
     }
 }
