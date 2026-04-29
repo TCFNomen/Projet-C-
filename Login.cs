@@ -69,6 +69,7 @@ namespace Projet_C
                         adminForm.Show();
                         this.Hide();
                         return;
+
                     }
 
                     // 2. Personnel → StaffDashboard
