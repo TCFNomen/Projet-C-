@@ -1,4 +1,5 @@
 ﻿using Projet_C_;
+using Projet_C_.Resources;
 using System;
 using System.Configuration;   // Needed for ConfigurationManager
 using System.Data.SqlClient;
@@ -119,6 +120,13 @@ namespace Projet_C
         private void label3_Click(object sender, EventArgs e)
         {
             // Empty
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            SettingsForm settings = new SettingsForm();
+            settings.Show();
+            this.Hide(); // hides login form
         }
     }
 }
