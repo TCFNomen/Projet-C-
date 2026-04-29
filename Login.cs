@@ -21,7 +21,7 @@ namespace Projet_C
 
         private void pictureBox1_Click(object sender, EventArgs e)
         {
-            // Empty
+            this.Close();
         }
 
         private void label1_Click(object sender, EventArgs e)
