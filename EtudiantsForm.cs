@@ -205,5 +205,10 @@ namespace Projet_C_
                 admin.Show();
             }
         }
+
+        private void EtudiantsForm_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

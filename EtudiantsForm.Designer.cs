@@ -43,6 +43,8 @@
             this.btnDelete = new System.Windows.Forms.Button();
             this.btnAdd = new System.Windows.Forms.Button();
             this.dataGridEtudiants = new System.Windows.Forms.DataGridView();
+            this.label6 = new System.Windows.Forms.Label();
+            this.txtPassword = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridEtudiants)).BeginInit();
             this.SuspendLayout();
             // 
@@ -103,7 +105,7 @@
             // 
             // txtEmail
             // 
-            this.txtEmail.Location = new System.Drawing.Point(86, 116);
+            this.txtEmail.Location = new System.Drawing.Point(105, 116);
             this.txtEmail.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.txtEmail.Name = "txtEmail";
             this.txtEmail.Size = new System.Drawing.Size(140, 20);
@@ -111,7 +113,7 @@
             // 
             // txtNumero
             // 
-            this.txtNumero.Location = new System.Drawing.Point(86, 93);
+            this.txtNumero.Location = new System.Drawing.Point(105, 93);
             this.txtNumero.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.txtNumero.Name = "txtNumero";
             this.txtNumero.Size = new System.Drawing.Size(140, 20);
@@ -119,7 +121,7 @@
             // 
             // txtCIN
             // 
-            this.txtCIN.Location = new System.Drawing.Point(86, 25);
+            this.txtCIN.Location = new System.Drawing.Point(105, 25);
             this.txtCIN.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.txtCIN.Name = "txtCIN";
             this.txtCIN.Size = new System.Drawing.Size(140, 20);
@@ -127,7 +129,7 @@
             // 
             // txtPrenom
             // 
-            this.txtPrenom.Location = new System.Drawing.Point(86, 71);
+            this.txtPrenom.Location = new System.Drawing.Point(105, 71);
             this.txtPrenom.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.txtPrenom.Name = "txtPrenom";
             this.txtPrenom.Size = new System.Drawing.Size(140, 20);
@@ -135,7 +137,7 @@
             // 
             // txtNom
             // 
-            this.txtNom.Location = new System.Drawing.Point(86, 48);
+            this.txtNom.Location = new System.Drawing.Point(105, 48);
             this.txtNom.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.txtNom.Name = "txtNom";
             this.txtNom.Size = new System.Drawing.Size(140, 20);
@@ -196,11 +198,32 @@
             this.dataGridEtudiants.Size = new System.Drawing.Size(611, 366);
             this.dataGridEtudiants.TabIndex = 32;
             // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
+            this.label6.Location = new System.Drawing.Point(1, 145);
+            this.label6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(100, 15);
+            this.label6.TabIndex = 34;
+            this.label6.Text = "Mot De Passe:";
+            // 
+            // txtPassword
+            // 
+            this.txtPassword.Location = new System.Drawing.Point(105, 140);
+            this.txtPassword.Margin = new System.Windows.Forms.Padding(2);
+            this.txtPassword.Name = "txtPassword";
+            this.txtPassword.Size = new System.Drawing.Size(140, 20);
+            this.txtPassword.TabIndex = 33;
+            // 
             // EtudiantsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(878, 444);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.txtPassword);
             this.Controls.Add(this.dataGridEtudiants);
             this.Controls.Add(this.btnBack);
             this.Controls.Add(this.btnModify);
@@ -219,6 +242,7 @@
             this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "EtudiantsForm";
             this.Text = "EtudiantsForm";
+            this.Load += new System.EventHandler(this.EtudiantsForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridEtudiants)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -241,5 +265,7 @@
         private System.Windows.Forms.Button btnDelete;
         private System.Windows.Forms.Button btnAdd;
         private System.Windows.Forms.DataGridView dataGridEtudiants;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.TextBox txtPassword;
     }
 }

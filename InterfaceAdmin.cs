@@ -1,4 +1,5 @@
 ﻿using Projet_C_;
+using Projet_C_.Resources;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -71,6 +72,20 @@ namespace Projet_C
             MenuForm menuForms = new MenuForm(this);
             menuForms.Show();
             this.Hide();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            SettingsForm settings = new SettingsForm();
+            settings.Show();
+            this.Hide(); // hides login form
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Login log = new Login();
+            log.Show();
+            this.Hide(); //hiding login page in order for the new page to show up
         }
     }
 }
