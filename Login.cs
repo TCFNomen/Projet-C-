@@ -78,7 +78,7 @@ namespace Projet_C
                         MessageBox.Show("Login successful (Personnel)");
                         StaffDashboard staffForm = new StaffDashboard(carte_id);
                         staffForm.Show();
-                        this.Hide();
+                        this.Hide(); //hiding login page in order for the new page to show up
                         return;
                     }
 
