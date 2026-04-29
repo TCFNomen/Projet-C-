@@ -75,7 +75,7 @@ namespace Projet_C
                     if (CheckCredentials(conn, "dbo.personnels", "CIN", "Password", carte_id, mdp))
                     {
                         MessageBox.Show("Login successful (Personnel)");
-                        StaffDashboard staffForm = new StaffDashboard();
+                        StaffDashboard staffForm = new StaffDashboard(carte_id);
                         staffForm.Show();
                         this.Hide();
                         return;
@@ -85,7 +85,7 @@ namespace Projet_C
                     if (CheckCredentials(conn, "dbo.etudiants", "CIN", "Password", carte_id, mdp))
                     {
                         MessageBox.Show("Login successful (Etudiant)");
-                        EtudiantsDashboard etuForm = new EtudiantsDashboard();
+                        EtudiantsDashboard etuForm = new EtudiantsDashboard(carte_id);
                         etuForm.Show();
                         this.Hide();
                         return;

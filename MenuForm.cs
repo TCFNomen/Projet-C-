@@ -171,7 +171,14 @@ namespace Projet_C_
             {
                 DataGridViewRow row = dataGridMenu.Rows[e.RowIndex];
 
-                txtJour.Text = Convert.ToDateTime(row.Cells["DateMenu"].Value).ToString("dd-MM-yyyy");
+                if (row.Cells["DateMenu"].Value != DBNull.Value)
+                {
+                    txtJour.Text = Convert.ToDateTime(row.Cells["DateMenu"].Value).ToString("dd-MM-yyyy");
+                }
+                else
+                {
+                    txtJour.Text = string.Empty; // or show a placeholder
+                }
                 txtPlat.Text = row.Cells["PlatPrincipal"].Value.ToString();
                 txtDessert.Text = row.Cells["Dessert"].Value.ToString();
                 txtBoisson.Text = row.Cells["Boisson"].Value.ToString();

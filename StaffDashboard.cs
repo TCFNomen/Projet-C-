@@ -1,20 +1,56 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Projet_C_
 {
     public partial class StaffDashboard : Form
     {
-        public StaffDashboard()
+        private string connString = @"Data Source=LAPTOP-VHCQUHIA;Initial Catalog=uni_gestion;Integrated Security=True";
+        private string personnelCIN; // passed from Login
+
+        public StaffDashboard(string cin)
         {
             InitializeComponent();
+            personnelCIN = cin;
+            LoadStaffData();
+        }
+
+        private void LoadStaffData()
+        {
+            using (SqlConnection conn = new SqlConnection(connString))
+            {
+                conn.Open();
+                SqlCommand cmd = new SqlCommand(
+                    "SELECT CIN, Nom, Prenom, Phone, Email, Poste, Password, Salary " +
+                    "FROM dbo.personnels WHERE CIN=@cin", conn);
+
+                cmd.Parameters.AddWithValue("@cin", personnelCIN);
+
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+
+                dataGridStaff.DataSource = dt;
+                StyleDataGrid(dataGridStaff);
+            }
+        }
+
+        private void StyleDataGrid(DataGridView grid)
+        {
+            grid.BorderStyle = BorderStyle.None;
+            grid.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(238, 239, 249);
+            grid.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
+            grid.DefaultCellStyle.SelectionBackColor = Color.DarkTurquoise;
+            grid.DefaultCellStyle.SelectionForeColor = Color.WhiteSmoke;
+            grid.BackgroundColor = Color.White;
+
+            grid.EnableHeadersVisualStyles = false;
+            grid.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
+            grid.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(20, 25, 72);
+            grid.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
         }
     }
 }

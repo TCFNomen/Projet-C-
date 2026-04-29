@@ -33,7 +33,11 @@
             this.btn_Cancel = new System.Windows.Forms.Button();
             this.btn_Cons = new System.Windows.Forms.Button();
             this.dataGridMenu = new System.Windows.Forms.DataGridView();
+            this.label2 = new System.Windows.Forms.Label();
+            this.dataGridReservations = new System.Windows.Forms.DataGridView();
+            this.label3 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridMenu)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridReservations)).BeginInit();
             this.SuspendLayout();
             // 
             // btn_Res
@@ -78,18 +82,49 @@
             // dataGridMenu
             // 
             this.dataGridMenu.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridMenu.Location = new System.Drawing.Point(457, 18);
+            this.dataGridMenu.Location = new System.Drawing.Point(463, 53);
             this.dataGridMenu.Name = "dataGridMenu";
             this.dataGridMenu.RowHeadersWidth = 51;
             this.dataGridMenu.RowTemplate.Height = 24;
-            this.dataGridMenu.Size = new System.Drawing.Size(730, 373);
+            this.dataGridMenu.Size = new System.Drawing.Size(732, 189);
             this.dataGridMenu.TabIndex = 4;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(460, 28);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(131, 16);
+            this.label2.TabIndex = 5;
+            this.label2.Text = "Menu de la semaine:";
+            // 
+            // dataGridReservations
+            // 
+            this.dataGridReservations.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridReservations.Location = new System.Drawing.Point(463, 273);
+            this.dataGridReservations.Name = "dataGridReservations";
+            this.dataGridReservations.RowHeadersWidth = 51;
+            this.dataGridReservations.RowTemplate.Height = 24;
+            this.dataGridReservations.Size = new System.Drawing.Size(732, 159);
+            this.dataGridReservations.TabIndex = 6;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(460, 254);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(110, 16);
+            this.label3.TabIndex = 7;
+            this.label3.Text = "Mes réservations";
             // 
             // EtudiantsDashboard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1221, 550);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.dataGridReservations);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.dataGridMenu);
             this.Controls.Add(this.btn_Cons);
             this.Controls.Add(this.btn_Cancel);
@@ -98,6 +133,7 @@
             this.Name = "EtudiantsDashboard";
             this.Text = "EtudiantsDashboard";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridMenu)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridReservations)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -110,5 +146,8 @@
         private System.Windows.Forms.Button btn_Cancel;
         private System.Windows.Forms.Button btn_Cons;
         private System.Windows.Forms.DataGridView dataGridMenu;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.DataGridView dataGridReservations;
+        private System.Windows.Forms.Label label3;
     }
 }

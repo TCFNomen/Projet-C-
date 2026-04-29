@@ -129,6 +129,7 @@ namespace Projet_C
             string email = txtEmail.Text.Trim();
             string poste = txtPoste.Text.Trim();
             string password = txtPassword.Text.Trim();
+            string salary = txtSalary.Text.Trim();
 
             // Validation
             if (!System.Text.RegularExpressions.Regex.IsMatch(cin, @"^\d{8}$"))
@@ -156,7 +157,7 @@ namespace Projet_C
             {
                 conn.Open();
                 SqlCommand cmd = new SqlCommand(
-                    "UPDATE dbo.personnels SET Nom=@nom, Prenom=@prenom, Phone=@phone, Email=@email, Poste=@poste, Password=@password WHERE CIN=@cin", conn);
+                    "UPDATE dbo.personnels SET Nom=@nom, Prenom=@prenom, Phone=@phone, Email=@email, Poste=@poste, Password=@password , Salary =@salary WHERE CIN=@cin", conn);
 
                 cmd.Parameters.AddWithValue("@cin", cin);
                 cmd.Parameters.AddWithValue("@nom", nom);
@@ -165,6 +166,7 @@ namespace Projet_C
                 cmd.Parameters.AddWithValue("@email", email);
                 cmd.Parameters.AddWithValue("@poste", poste);
                 cmd.Parameters.AddWithValue("@password", password);
+                cmd.Parameters.AddWithValue("@salary", salary);
 
                 cmd.ExecuteNonQuery();
             }
@@ -200,6 +202,7 @@ namespace Projet_C
                 txtEmail.Text = row.Cells["Email"].Value.ToString();
                 txtPoste.Text = row.Cells["Poste"].Value.ToString();
                 txtPassword.Text = row.Cells["Password"].Value.ToString();
+                txtSalary.Text = row.Cells["Salary"].Value.ToString();
             }
         }
         private void dataGridEmployees_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -215,6 +218,7 @@ namespace Projet_C
                 txtEmail.Text = row.Cells["Email"].Value.ToString();
                 txtPoste.Text = row.Cells["Poste"].Value.ToString();
                 txtPassword.Text = row.Cells["Password"].Value.ToString();
+                txtSalary.Text = row.Cells["Salary"].Value.ToString();
             }
         }
 
