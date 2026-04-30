@@ -17,6 +17,11 @@ namespace Projet_C
         private void Form1_Load(object sender, EventArgs e)
         {
             // Empty
+         
+            foreach (Form form in Application.OpenForms)
+            {
+                ThemeManager.ApplyTheme(form);
+            }
         }
 
         private void pictureBox1_Click(object sender, EventArgs e)
@@ -128,5 +133,6 @@ namespace Projet_C
             settings.Show();
             this.Hide(); // hides login form
         }
+        
     }
 }

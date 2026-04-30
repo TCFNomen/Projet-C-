@@ -39,6 +39,8 @@
             this.checkBox4 = new System.Windows.Forms.CheckBox();
             this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.chkoui = new System.Windows.Forms.CheckBox();
+            this.label5 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.SuspendLayout();
             // 
@@ -65,7 +67,7 @@
             // btn_save
             // 
             this.btn_save.Font = new System.Drawing.Font("Franklin Gothic Book", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_save.Location = new System.Drawing.Point(290, 269);
+            this.btn_save.Location = new System.Drawing.Point(290, 310);
             this.btn_save.Margin = new System.Windows.Forms.Padding(2);
             this.btn_save.Name = "btn_save";
             this.btn_save.Size = new System.Drawing.Size(184, 49);
@@ -163,11 +165,35 @@
             this.checkBox1.Text = "Oui";
             this.checkBox1.UseVisualStyleBackColor = true;
             // 
+            // chkoui
+            // 
+            this.chkoui.AutoSize = true;
+            this.chkoui.Font = new System.Drawing.Font("Franklin Gothic Book", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkoui.Location = new System.Drawing.Point(392, 248);
+            this.chkoui.Name = "chkoui";
+            this.chkoui.Size = new System.Drawing.Size(66, 38);
+            this.chkoui.TabIndex = 25;
+            this.chkoui.Text = "On";
+            this.chkoui.UseVisualStyleBackColor = true;
+            this.chkoui.CheckedChanged += new System.EventHandler(this.chkoui_CheckedChanged);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Franklin Gothic Book", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(181, 252);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(183, 34);
+            this.label5.TabIndex = 24;
+            this.label5.Text = "Mode Sombre:";
+            // 
             // SettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.chkoui);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.checkBox3);
             this.Controls.Add(this.checkBox4);
             this.Controls.Add(this.checkBox2);
@@ -201,5 +227,7 @@
         private System.Windows.Forms.CheckBox checkBox4;
         private System.Windows.Forms.CheckBox checkBox2;
         private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.CheckBox chkoui;
+        private System.Windows.Forms.Label label5;
     }
 }

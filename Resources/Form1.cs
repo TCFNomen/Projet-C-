@@ -11,8 +11,14 @@ using System.Windows.Forms;
 
 namespace Projet_C_.Resources
 {
+    
     public partial class SettingsForm : Form
     {
+        protected override void OnLoad(EventArgs e)
+        {
+            base.OnLoad(e);
+            ThemeManager.ApplyTheme(this);
+        }
         public SettingsForm()
         {
             InitializeComponent();
@@ -36,6 +42,35 @@ namespace Projet_C_.Resources
                   "Succès",
                   MessageBoxButtons.OK,
                   MessageBoxIcon.Information);
+        }
+
+        private void chkoui_CheckedChanged(object sender, EventArgs e)
+        {
+            ThemeManager.DarkMode = chkoui.Checked;
+
+            foreach (Form form in Application.OpenForms)
+            {
+                ThemeManager.ApplyTheme(form);
+            }
+        }
+    }
+    public static class ThemeManager
+    {
+
+        public static bool DarkMode = true;
+
+        public static Color BackColor => DarkMode ? Color.FromArgb(30, 30, 30) : Color.White;
+        public static Color ForeColor => DarkMode ? Color.White : Color.Black;
+
+        public static void ApplyTheme(Control control)
+        {
+            control.BackColor = BackColor;
+            control.ForeColor = ForeColor;
+
+            foreach (Control c in control.Controls)
+            {
+                ApplyTheme(c);
+            }
         }
     }
 }
