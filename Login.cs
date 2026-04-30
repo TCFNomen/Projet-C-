@@ -66,7 +66,7 @@ namespace Projet_C
                     if (CheckCredentials(conn, "dbo.admin", "CIN", "Password", carte_id, mdp))
                     {
                         MessageBox.Show("Login successful (Admin)");
-                        InterfaceAdmin adminForm = new InterfaceAdmin();
+                        InterfaceAdmin adminForm = new InterfaceAdmin(); //Opening Interface
                         adminForm.Show();
                         this.Hide();
                         return;
