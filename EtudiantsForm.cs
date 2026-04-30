@@ -3,7 +3,9 @@ using Projet_C_.Resources;
 using System;
 using System.Data;
 using System.Data.SqlClient;
+using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 
 namespace Projet_C_
 {
@@ -114,8 +116,8 @@ namespace Projet_C_
             }
         }
 
-        private void btnModify_Click(object sender, EventArgs e)
-        {
+        private async Task btnModify_ClickAsync(object sender, EventArgs e)
+        {/*
             string cin = txtCIN.Text.Trim();
             string nom = txtNom.Text.Trim();
             string prenom = txtPrenom.Text.Trim();
@@ -162,7 +164,39 @@ namespace Projet_C_
             }
 
             MessageBox.Show("Étudiant modifié avec succès !");
-            LoadEtudiants();
+            LoadEtudiants();*/
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connString))
+                {
+                    // Use OpenAsync()
+                    await conn.OpenAsync();
+
+                    string query = "UPDATE dbo.etudiants SET Nom=@nom, Prenom=@prenom, Phone=@phone, Email=@email, Password=@password WHERE CIN=@cin";
+
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@cin", cin);
+                        cmd.Parameters.AddWithValue("@nom", nom);
+                        cmd.Parameters.AddWithValue("@prenom", prenom);
+                        cmd.Parameters.AddWithValue("@phone", phone);
+                        cmd.Parameters.AddWithValue("@email", email);
+                        cmd.Parameters.AddWithValue("@password", password);
+
+                        // Use ExecuteNonQueryAsync()
+                        await cmd.ExecuteNonQueryAsync();
+                    }
+                }
+
+                MessageBox.Show("Étudiant modifié avec succès !");
+
+                // Ensure LoadEtudiants is also an async method or called correctly
+                await LoadEtudiants();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erreur: " + ex.Message);
+            }
         }
 
         private void btnBack_Click(object sender, EventArgs e)
