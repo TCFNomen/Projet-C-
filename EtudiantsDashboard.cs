@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Projet_C;
+using System;
 using System.Data;
 using System.Data.SqlClient;
 using System.Windows.Forms;
@@ -146,6 +147,13 @@ namespace Projet_C_
             }
 
             MessageBox.Show("Historique des réservations chargé !");
+        }
+
+        private void btn_SignOut_Click(object sender, EventArgs e)
+        {
+            Login log = new Login();
+            log.Show();
+            this.Hide(); //hiding login page in order for the new page to show up
         }
     }
 }

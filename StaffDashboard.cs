@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Projet_C;
+using System;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
@@ -51,6 +52,13 @@ namespace Projet_C_
             grid.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
             grid.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(20, 25, 72);
             grid.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+        }
+
+        private void btn_SignOut_Click(object sender, EventArgs e)
+        {
+            Login log = new Login();
+            log.Show();
+            this.Hide(); //hiding login page in order for the new page to show up
         }
     }
 }
