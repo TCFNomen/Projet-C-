@@ -1,4 +1,5 @@
 ﻿using Projet_C;
+using Projet_C_.Resources;
 using System;
 using System.Data;
 using System.Data.SqlClient;
@@ -17,6 +18,7 @@ namespace Projet_C_
             InitializeComponent();
             personnelCIN = cin;
             LoadStaffData();
+            ThemeManager.ApplyTheme(this); // Apply dark mode globally
         }
 
         private void LoadStaffData()

@@ -1,4 +1,5 @@
 ﻿using Projet_C;
+using Projet_C_.Resources;
 using System;
 using System.Data;
 using System.Data.SqlClient;
@@ -20,6 +21,7 @@ namespace Projet_C_
             InitializeComponent();
             etudiantCIN = cin;
             LoadTodayMenus();
+            ThemeManager.ApplyTheme(this); // Apply dark mode globally
         }
 
         // Load today's menus into dataGridMenu

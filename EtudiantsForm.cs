@@ -1,4 +1,5 @@
 ﻿using Projet_C;
+using Projet_C_.Resources;
 using System;
 using System.Data;
 using System.Data.SqlClient;
@@ -14,6 +15,7 @@ namespace Projet_C_
         public EtudiantsForm(Form parent)
         {
             InitializeComponent();
+            ThemeManager.ApplyTheme(this); // Apply dark mode globally
             parentForm = parent;
             LoadEtudiants();
         }

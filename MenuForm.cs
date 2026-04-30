@@ -1,5 +1,6 @@
 ﻿using Projet_C;
 using Projet_C_;
+using Projet_C_.Resources;
 using System;
 using System.Data;
 using System.Data.SqlClient;
@@ -18,12 +19,14 @@ namespace Projet_C_
             InitializeComponent();
             parentForm = parent;
             LoadMenus();
+
         }
 
         public MenuForm()
         {
             InitializeComponent();
             LoadMenus();
+            ThemeManager.ApplyTheme(this); // Apply dark mode globally
         }
 
         private void LoadMenus()
