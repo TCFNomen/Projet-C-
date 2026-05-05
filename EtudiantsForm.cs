@@ -20,6 +20,8 @@ namespace Projet_C_
             ThemeManager.ApplyTheme(this); // Apply dark mode globally
             parentForm = parent;
             LoadEtudiants();
+            dataGridEtudiants.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dataGridEtudiants.MultiSelect = false;
         }
 
         private void LoadEtudiants()
@@ -90,126 +92,59 @@ namespace Projet_C_
             }
 
             MessageBox.Show("Étudiant ajouté avec succès !");
+            txtCIN.ReadOnly = false; // Make it editable again for the next entry
+            ClearFields();
             LoadEtudiants();
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            if (dataGridEtudiants.SelectedRows.Count > 0)
-            {
-                string cin = dataGridEtudiants.SelectedRows[0].Cells["CIN"].Value.ToString();
+            // Use the text in txtCIN as the target, or the selected row
+            string cinToDelete = txtCIN.Text.Trim();
 
-                using (SqlConnection conn = new SqlConnection(connString))
-                {
-                    conn.Open();
-                    SqlCommand cmd = new SqlCommand("DELETE FROM dbo.etudiants WHERE CIN=@cin", conn);
-                    cmd.Parameters.AddWithValue("@cin", cin);
-                    cmd.ExecuteNonQuery();
-                }
-
-                MessageBox.Show("Étudiant supprimé !");
-                LoadEtudiants();
-            }
-            else
+            if (string.IsNullOrEmpty(cinToDelete))
             {
-                MessageBox.Show("Veuillez sélectionner un étudiant à supprimer.");
-            }
-        }
-
-        private async Task btnModify_ClickAsync(object sender, EventArgs e)
-        {/*
-            string cin = txtCIN.Text.Trim();
-            string nom = txtNom.Text.Trim();
-            string prenom = txtPrenom.Text.Trim();
-            string phone = txtNumero.Text.Trim();
-            string email = txtEmail.Text.Trim();
-            string password = txtPassword.Text.Trim();
-
-            // Validation
-            if (!System.Text.RegularExpressions.Regex.IsMatch(cin, @"^\d{8}$"))
-            {
-                MessageBox.Show("CIN doit contenir exactement 8 chiffres.");
-                return;
-            }
-            if (!System.Text.RegularExpressions.Regex.IsMatch(phone, @"^\d{8}$"))
-            {
-                MessageBox.Show("Numéro doit contenir exactement 8 chiffres.");
-                return;
-            }
-            if (!System.Text.RegularExpressions.Regex.IsMatch(email, @"^[^@\s]+@gmail\.com$"))
-            {
-                MessageBox.Show("Email doit être au format something@gmail.com.");
-                return;
-            }
-            if (string.IsNullOrWhiteSpace(password))
-            {
-                MessageBox.Show("Veuillez entrer un mot de passe.");
+                MessageBox.Show("Veuillez sélectionner un étudiant (cliquez sur une ligne ou entrez le CIN).");
                 return;
             }
 
-            using (SqlConnection conn = new SqlConnection(connString))
-            {
-                conn.Open();
-                SqlCommand cmd = new SqlCommand(
-                    "UPDATE dbo.etudiants SET Nom=@nom, Prenom=@prenom, Phone=@phone, Email=@email, Password=@password WHERE CIN=@cin", conn);
+            DialogResult result = MessageBox.Show($"Voulez-vous vraiment supprimer l'étudiant {cinToDelete} ? Cela supprimera aussi ses réservations.",
+                "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 
-                cmd.Parameters.AddWithValue("@cin", cin);
-                cmd.Parameters.AddWithValue("@nom", nom);
-                cmd.Parameters.AddWithValue("@prenom", prenom);
-                cmd.Parameters.AddWithValue("@phone", phone);
-                cmd.Parameters.AddWithValue("@email", email);
-                cmd.Parameters.AddWithValue("@password", password);
-
-                cmd.ExecuteNonQuery();
-            }
-
-            MessageBox.Show("Étudiant modifié avec succès !");
-            LoadEtudiants();*/
-            try
+            if (result == DialogResult.Yes)
             {
                 using (SqlConnection conn = new SqlConnection(connString))
                 {
-                    // Use OpenAsync()
-                    await conn.OpenAsync();
-
-                    string query = "UPDATE dbo.etudiants SET Nom=@nom, Prenom=@prenom, Phone=@phone, Email=@email, Password=@password WHERE CIN=@cin";
-
-                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    try
                     {
-                        cmd.Parameters.AddWithValue("@cin", cin);
-                        cmd.Parameters.AddWithValue("@nom", nom);
-                        cmd.Parameters.AddWithValue("@prenom", prenom);
-                        cmd.Parameters.AddWithValue("@phone", phone);
-                        cmd.Parameters.AddWithValue("@email", email);
-                        cmd.Parameters.AddWithValue("@password", password);
+                        conn.Open();
+                        // 1. Delete reservations first to avoid SQL errors
+                        SqlCommand cmdRes = new SqlCommand("DELETE FROM dbo.reservations WHERE EtudiantCIN=@cin", conn);
+                        cmdRes.Parameters.AddWithValue("@cin", cinToDelete);
+                        cmdRes.ExecuteNonQuery();
 
-                        // Use ExecuteNonQueryAsync()
-                        await cmd.ExecuteNonQueryAsync();
+                        // 2. Delete the student
+                        SqlCommand cmdEtud = new SqlCommand("DELETE FROM dbo.etudiants WHERE CIN=@cin", conn);
+                        cmdEtud.Parameters.AddWithValue("@cin", cinToDelete);
+
+                        int rows = cmdEtud.ExecuteNonQuery();
+                        if (rows > 0)
+                        {
+                            MessageBox.Show("Étudiant supprimé avec succès !");
+                            txtCIN.ReadOnly = false; // Reset so user can type a new CIN
+                            ClearFields();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Aucun étudiant trouvé avec ce CIN.");
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Erreur lors de la suppression : " + ex.Message);
                     }
                 }
-
-                MessageBox.Show("Étudiant modifié avec succès !");
-
-                // Ensure LoadEtudiants is also an async method or called correctly
-                await LoadEtudiants();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Erreur: " + ex.Message);
-            }
-        }
-
-        private void btnBack_Click(object sender, EventArgs e)
-        {
-            this.Hide();
-            if (parentForm != null)
-            {
-                parentForm.Show();
-            }
-            else
-            {
-                InterfaceAdmin admin = new InterfaceAdmin();
-                admin.Show();
+                LoadEtudiants();
             }
         }
 
@@ -220,6 +155,8 @@ namespace Projet_C_
                 DataGridViewRow row = dataGridEtudiants.Rows[e.RowIndex];
 
                 txtCIN.Text = row.Cells["CIN"].Value.ToString();
+                txtCIN.ReadOnly = true; // Lock the CIN so it can't be changed during modification
+
                 txtNom.Text = row.Cells["Nom"].Value.ToString();
                 txtPrenom.Text = row.Cells["Prenom"].Value.ToString();
                 txtNumero.Text = row.Cells["Phone"].Value.ToString();
@@ -245,6 +182,69 @@ namespace Projet_C_
         private void EtudiantsForm_Load(object sender, EventArgs e)
         {
 
+        }
+        // Call this inside Add, Modify, and Delete to keep the form clean
+        private void ClearFields()
+        {
+            txtCIN.Clear();
+            txtNom.Clear();
+            txtPrenom.Clear();
+            txtNumero.Clear();
+            txtEmail.Clear();
+            txtPassword.Clear();
+        }
+
+        // Move your Regex logic here to reuse it for both Add and Modify
+        private bool ValidateInputs()
+        {
+            if (!System.Text.RegularExpressions.Regex.IsMatch(txtCIN.Text.Trim(), @"^\d{8}$"))
+            {
+                MessageBox.Show("CIN doit contenir exactement 8 chiffres.");
+                return false;
+            }
+            // Add your other regex checks here...
+            return true;
+        }
+
+        private void btnModify_Click_1(object sender, EventArgs e)
+        {
+            // Use the CIN from the textbox as the unique ID for the update
+            string cin = txtCIN.Text.Trim();
+
+            if (string.IsNullOrEmpty(cin))
+            {
+                MessageBox.Show("Sélectionnez un étudiant dans la liste.");
+                return;
+            }
+
+            using (SqlConnection conn = new SqlConnection(connString))
+            {
+                try
+                {
+                    conn.Open();
+                    string query = "UPDATE dbo.etudiants SET Nom=@nom, Prenom=@prenom, Phone=@phone, Email=@email, Password=@password WHERE CIN=@cin";
+
+                    SqlCommand cmd = new SqlCommand(query, conn);
+                    cmd.Parameters.AddWithValue("@cin", cin);
+                    cmd.Parameters.AddWithValue("@nom", txtNom.Text.Trim());
+                    cmd.Parameters.AddWithValue("@prenom", txtPrenom.Text.Trim());
+                    cmd.Parameters.AddWithValue("@phone", txtNumero.Text.Trim());
+                    cmd.Parameters.AddWithValue("@email", txtEmail.Text.Trim());
+                    cmd.Parameters.AddWithValue("@password", txtPassword.Text.Trim());
+
+                    int result = cmd.ExecuteNonQuery();
+                    if (result > 0)
+                        MessageBox.Show("Modification réussie !");
+                    else
+                        MessageBox.Show("Aucun étudiant trouvé avec ce CIN.");
+
+                    LoadEtudiants(); // Refresh the grid
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Erreur SQL: " + ex.Message);
+                }
+            }
         }
     }
 }

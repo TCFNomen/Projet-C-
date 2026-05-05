@@ -3,6 +3,7 @@ using Projet_C_.Resources;
 using System;
 using System.Data;
 using System.Data.SqlClient;
+using System.IO;
 using System.Windows.Forms;
 
 namespace Projet_C_
@@ -74,29 +75,44 @@ namespace Projet_C_
             }
 
             int menuId = Convert.ToInt32(dataGridMenu.SelectedRows[0].Cells["Id"].Value);
-            DateTime today = DateTime.Today;
+            // Get the date of the menu selected, not just "Today"
+            DateTime menuDate = Convert.ToDateTime(dataGridMenu.SelectedRows[0].Cells["DateMenu"].Value);
 
             using (SqlConnection conn = new SqlConnection(connString))
             {
                 try
                 {
                     conn.Open();
+
+                    // --- CHECK IF RESERVATION EXISTS FOR THIS DATE ---
+                    string checkQuery = "SELECT COUNT(*) FROM dbo.Reservations WHERE EtudiantCIN = @cin AND DateReservation = @date";
+                    SqlCommand checkCmd = new SqlCommand(checkQuery, conn);
+                    checkCmd.Parameters.AddWithValue("@cin", etudiantCIN);
+                    checkCmd.Parameters.AddWithValue("@date", menuDate);
+
+                    int count = (int)checkCmd.ExecuteScalar();
+
+                    if (count > 0)
+                    {
+                        MessageBox.Show("Vous avez déjà une réservation pour cette date (" + menuDate.ToShortDateString() + ").");
+                        return;
+                    }
+
+                    // --- PROCEED WITH INSERT ---
                     SqlCommand cmd = new SqlCommand(
                         "INSERT INTO dbo.Reservations (EtudiantCIN, MenuId, DateReservation) VALUES (@cin, @menuId, @date)", conn);
 
                     cmd.Parameters.AddWithValue("@cin", etudiantCIN);
                     cmd.Parameters.AddWithValue("@menuId", menuId);
-                    cmd.Parameters.AddWithValue("@date", today);
+                    cmd.Parameters.AddWithValue("@date", menuDate);
 
                     cmd.ExecuteNonQuery();
                     MessageBox.Show("Réservation effectuée avec succès !");
-
-                    // 🔥 Refresh reservations grid immediately
                     LoadReservations();
                 }
                 catch (SqlException ex)
                 {
-                    MessageBox.Show("Erreur de réservation: " + ex.Message);
+                    MessageBox.Show("Erreur: " + ex.Message);
                 }
             }
         }
@@ -105,27 +121,41 @@ namespace Projet_C_
         // ✅ Cancel a reservation
         private void btn_Cancel_Click(object sender, EventArgs e)
         {
-            if (dataGridMenu.SelectedRows.Count == 0)
+            if (dataGridReservations.SelectedRows.Count == 0)
             {
-                MessageBox.Show("Veuillez sélectionner un menu à annuler.");
+                MessageBox.Show("Sélectionnez une réservation dans votre historique pour l'annuler.");
                 return;
             }
 
-            int menuId = Convert.ToInt32(dataGridMenu.SelectedRows[0].Cells["Id"].Value);
-            DateTime today = DateTime.Today;
+            // Get the date from the selected reservation row
+            DateTime resDate = Convert.ToDateTime(dataGridReservations.SelectedRows[0].Cells["DateReservation"].Value);
 
-            using (SqlConnection conn = new SqlConnection(connString))
+            // Optional: Prevent canceling past meals
+            if (resDate < DateTime.Today)
             {
-                conn.Open();
-                SqlCommand cmd = new SqlCommand(
-                    "DELETE FROM dbo.Reservations WHERE EtudiantCIN=@cin AND MenuId=@menuId AND DateReservation=@date", conn);
+                MessageBox.Show("Vous ne pouvez pas annuler une réservation passée.");
+                return;
+            }
 
-                cmd.Parameters.AddWithValue("@cin", etudiantCIN);
-                cmd.Parameters.AddWithValue("@menuId", menuId);
-                cmd.Parameters.AddWithValue("@date", today);
+            DialogResult dialogResult = MessageBox.Show("Voulez-vous vraiment annuler cette réservation ?", "Confirmation", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                using (SqlConnection conn = new SqlConnection(connString))
+                {
+                    conn.Open();
+                    // Delete based on student and the specific date
+                    string deleteQuery = "DELETE FROM dbo.Reservations WHERE EtudiantCIN = @cin AND DateReservation = @date";
+                    SqlCommand cmd = new SqlCommand(deleteQuery, conn);
+                    cmd.Parameters.AddWithValue("@cin", etudiantCIN);
+                    cmd.Parameters.AddWithValue("@date", resDate);
 
-                int rows = cmd.ExecuteNonQuery();
-                MessageBox.Show(rows > 0 ? "Réservation annulée !" : "Aucune réservation trouvée pour ce menu aujourd'hui.");
+                    int rows = cmd.ExecuteNonQuery();
+                    if (rows > 0)
+                    {
+                        MessageBox.Show("Réservation annulée !");
+                        LoadReservations(); // Refresh the list
+                    }
+                }
             }
         }
 
@@ -150,12 +180,93 @@ namespace Projet_C_
 
             MessageBox.Show("Historique des réservations chargé !");
         }
+        private void UpdateStudentStats()
+        {
+            using (SqlConnection conn = new SqlConnection(connString))
+            {
+                try
+                {
+                    conn.Open();
+                    // SQL logic: COUNT rows for the count, SUM prices for the total
+                    string query = @"SELECT COUNT(*) as TotalCount, SUM(M.Prix) as TotalPrice 
+                             FROM dbo.Reservations R 
+                             JOIN dbo.Menu M ON R.MenuId = M.Id 
+                             WHERE R.EtudiantCIN = @cin";
+
+                    SqlCommand cmd = new SqlCommand(query, conn);
+                    cmd.Parameters.AddWithValue("@cin", etudiantCIN);
+
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            // Handle cases where the student has 0 reservations (NULL)
+                            int count = reader["TotalCount"] != DBNull.Value ? Convert.ToInt32(reader["TotalCount"]) : 0;
+                            decimal total = reader["TotalPrice"] != DBNull.Value ? Convert.ToDecimal(reader["TotalPrice"]) : 0;
+
+                            // Update the text on your Form
+                            label_4.Text = $"Total réservations : {count}";
+                            label_5.Text = $"Total dépensé : {total:f2} DT";
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Erreur stats: " + ex.Message);
+                }
+            }
+        }
 
         private void btn_SignOut_Click(object sender, EventArgs e)
         {
             Login log = new Login();
             log.Show();
             this.Hide(); //hiding login page in order for the new page to show up
+        }
+
+        private void btnExportHistory_Click(object sender, EventArgs e)
+        {
+            if (dataGridReservations.Rows.Count == 0)
+            {
+                MessageBox.Show("Aucun historique à exporter.");
+                return;
+            }
+
+            SaveFileDialog sfd = new SaveFileDialog();
+            sfd.Filter = "Fichier CSV (*.csv)|*.csv";
+            sfd.FileName = $"Historique_{etudiantCIN}.csv";
+
+            if (sfd.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    using (StreamWriter sw = new StreamWriter(sfd.FileName, false, System.Text.Encoding.UTF8))
+                    {
+                        // CSV Header
+                        sw.WriteLine("Date;Plat Principal;Dessert;Boisson;Prix");
+
+                        // Loop through the DataGridView rows
+                        foreach (DataGridViewRow row in dataGridReservations.Rows)
+                        {
+                            if (!row.IsNewRow)
+                            {
+                                string date = Convert.ToDateTime(row.Cells["DateReservation"].Value).ToString("dd/MM/yyyy");
+                                string plat = row.Cells["PlatPrincipal"].Value.ToString();
+                                string dessert = row.Cells["Dessert"].Value.ToString();
+                                string boisson = row.Cells["Boisson"].Value.ToString();
+                                string prix = row.Cells["Prix"].Value.ToString();
+
+                                sw.WriteLine($"{date};{plat};{dessert};{boisson};{prix}");
+                            }
+                        }
+                    }
+                    MessageBox.Show("Historique exporté avec succès !");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Erreur lors de l'export : " + ex.Message);
+                }
+            }
         }
     }
 }

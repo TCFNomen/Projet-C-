@@ -49,11 +49,11 @@
             // dataGridMenu
             // 
             this.dataGridMenu.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridMenu.Location = new System.Drawing.Point(404, 12);
+            this.dataGridMenu.Location = new System.Drawing.Point(320, 12);
             this.dataGridMenu.Name = "dataGridMenu";
             this.dataGridMenu.RowHeadersWidth = 51;
             this.dataGridMenu.RowTemplate.Height = 24;
-            this.dataGridMenu.Size = new System.Drawing.Size(651, 458);
+            this.dataGridMenu.Size = new System.Drawing.Size(1016, 458);
             this.dataGridMenu.TabIndex = 0;
             this.dataGridMenu.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridMenu_CellClick);
             // 
@@ -114,7 +114,7 @@
             // 
             // btn_Delete
             // 
-            this.btn_Delete.Location = new System.Drawing.Point(77, 414);
+            this.btn_Delete.Location = new System.Drawing.Point(77, 387);
             this.btn_Delete.Name = "btn_Delete";
             this.btn_Delete.Size = new System.Drawing.Size(173, 41);
             this.btn_Delete.TabIndex = 8;
@@ -169,9 +169,9 @@
             // 
             // btn_Back
             // 
-            this.btn_Back.Location = new System.Drawing.Point(21, 480);
+            this.btn_Back.Location = new System.Drawing.Point(77, 434);
             this.btn_Back.Name = "btn_Back";
-            this.btn_Back.Size = new System.Drawing.Size(152, 66);
+            this.btn_Back.Size = new System.Drawing.Size(173, 66);
             this.btn_Back.TabIndex = 14;
             this.btn_Back.Text = "Retour";
             this.btn_Back.UseVisualStyleBackColor = true;
@@ -181,7 +181,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1067, 582);
+            this.ClientSize = new System.Drawing.Size(1348, 582);
             this.Controls.Add(this.btn_Back);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
