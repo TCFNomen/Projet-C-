@@ -1,4 +1,4 @@
-﻿using Projet_C;
+using Projet_C;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -26,7 +26,7 @@ namespace Projet_C_.Resources
         private void button1_Click(object sender, EventArgs e)
         {
             Login settings = new Login();
-            settings.Show();
+            settings.Show(); //open settings + Configuration
             this.Hide(); // hides login form
         }
 
@@ -35,7 +35,7 @@ namespace Projet_C_.Resources
             MessageBox.Show("Paramètres sauvegardés avec succès",
                   "Succès",
                   MessageBoxButtons.OK,
-                  MessageBoxIcon.Information);
+                  MessageBoxIcon.Information); //button de confirmation
         }
     }
 }
