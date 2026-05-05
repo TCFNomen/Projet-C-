@@ -1,4 +1,4 @@
-﻿using Projet_C;
+using Projet_C;
 using Projet_C_.Resources;
 using System;
 using System.Data;
@@ -65,7 +65,7 @@ namespace Projet_C_
         }
 
 
-        // ✅ Make a reservation
+        //  Make a reservation
         private void btn_Res_Click(object sender, EventArgs e)
         {
             if (dataGridMenu.SelectedRows.Count == 0)
@@ -118,7 +118,7 @@ namespace Projet_C_
         }
 
 
-        // ✅ Cancel a reservation
+        //  Cancel a reservation
         private void btn_Cancel_Click(object sender, EventArgs e)
         {
             if (dataGridReservations.SelectedRows.Count == 0)
@@ -159,7 +159,7 @@ namespace Projet_C_
             }
         }
 
-        // ✅ Consult reservation history
+        //  Consult reservation history
         private void btn_Cons_Click(object sender, EventArgs e)
         {
             using (SqlConnection conn = new SqlConnection(connString))
