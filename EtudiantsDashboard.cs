@@ -22,7 +22,7 @@ namespace Projet_C_
             InitializeComponent();
             etudiantCIN = cin;
             LoadTodayMenus();
-            ThemeManager.ApplyTheme(this); // Apply dark mode globally
+           
         }
 
         // Load today's menus into dataGridMenu
