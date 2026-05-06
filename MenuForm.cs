@@ -1,4 +1,4 @@
-﻿using Projet_C;
+using Projet_C;
 using Projet_C_.Resources;
 using System;
 using System.Data;
@@ -18,7 +18,7 @@ namespace Projet_C_
             InitializeComponent();
             parentForm = parent;
             LoadMenus();
-            ThemeManager.ApplyTheme(this);
+          
         }
 
         // Default constructor for standalone testing
@@ -26,7 +26,7 @@ namespace Projet_C_
         {
             InitializeComponent();
             LoadMenus();
-            ThemeManager.ApplyTheme(this);
+           
         }
 
         private void LoadMenus()
