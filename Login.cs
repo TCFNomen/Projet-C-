@@ -1,4 +1,4 @@
-﻿using Projet_C_;
+using Projet_C_;
 using Projet_C_.Resources;
 using System;
 using System.Configuration;   // Needed for ConfigurationManager
@@ -18,10 +18,7 @@ namespace Projet_C
         {
             // Empty
          
-            foreach (Form form in Application.OpenForms)
-            {
-                ThemeManager.ApplyTheme(form);
-            }
+        
         }
 
         private void pictureBox1_Click(object sender, EventArgs e)
