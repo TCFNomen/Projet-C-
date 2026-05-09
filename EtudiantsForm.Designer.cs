@@ -150,7 +150,7 @@
             this.btnBack.Location = new System.Drawing.Point(53, 168);
             this.btnBack.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnBack.Name = "btnBack";
-            this.btnBack.Size = new System.Drawing.Size(111, 50);
+            this.btnBack.Size = new System.Drawing.Size(126, 50);
             this.btnBack.TabIndex = 31;
             this.btnBack.Text = "Retour";
             this.btnBack.UseVisualStyleBackColor = true;
@@ -163,7 +163,7 @@
             this.btnModify.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnModify.Name = "btnModify";
             this.btnModify.Padding = new System.Windows.Forms.Padding(12, 8, 12, 8);
-            this.btnModify.Size = new System.Drawing.Size(111, 50);
+            this.btnModify.Size = new System.Drawing.Size(126, 50);
             this.btnModify.TabIndex = 30;
             this.btnModify.Text = "Modifier";
             this.btnModify.UseVisualStyleBackColor = true;
@@ -176,7 +176,7 @@
             this.btnDelete.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Padding = new System.Windows.Forms.Padding(12, 8, 12, 8);
-            this.btnDelete.Size = new System.Drawing.Size(111, 50);
+            this.btnDelete.Size = new System.Drawing.Size(126, 50);
             this.btnDelete.TabIndex = 29;
             this.btnDelete.Text = "Supprimer";
             this.btnDelete.UseVisualStyleBackColor = true;
@@ -189,7 +189,7 @@
             this.btnAdd.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Padding = new System.Windows.Forms.Padding(12, 8, 12, 8);
-            this.btnAdd.Size = new System.Drawing.Size(111, 50);
+            this.btnAdd.Size = new System.Drawing.Size(126, 50);
             this.btnAdd.TabIndex = 28;
             this.btnAdd.Text = "Ajouter";
             this.btnAdd.UseVisualStyleBackColor = true;

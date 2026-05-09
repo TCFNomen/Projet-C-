@@ -53,11 +53,11 @@
             // dataGridMenu
             // 
             this.dataGridMenu.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridMenu.Location = new System.Drawing.Point(360, 12);
+            this.dataGridMenu.Location = new System.Drawing.Point(358, 11);
             this.dataGridMenu.Name = "dataGridMenu";
             this.dataGridMenu.RowHeadersWidth = 51;
             this.dataGridMenu.RowTemplate.Height = 24;
-            this.dataGridMenu.Size = new System.Drawing.Size(1143, 458);
+            this.dataGridMenu.Size = new System.Drawing.Size(666, 458);
             this.dataGridMenu.TabIndex = 0;
             this.dataGridMenu.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridMenu_CellClick);
             // 
@@ -99,7 +99,7 @@
             // btn_Add
             // 
             this.btn_Add.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_Add.Location = new System.Drawing.Point(87, 281);
+            this.btn_Add.Location = new System.Drawing.Point(87, 293);
             this.btn_Add.Name = "btn_Add";
             this.btn_Add.Size = new System.Drawing.Size(195, 41);
             this.btn_Add.TabIndex = 6;
@@ -184,7 +184,7 @@
             this.btn_Back.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_Back.Location = new System.Drawing.Point(87, 434);
             this.btn_Back.Name = "btn_Back";
-            this.btn_Back.Size = new System.Drawing.Size(195, 66);
+            this.btn_Back.Size = new System.Drawing.Size(195, 35);
             this.btn_Back.TabIndex = 14;
             this.btn_Back.Text = "Retour";
             this.btn_Back.UseVisualStyleBackColor = true;
@@ -215,7 +215,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.ClientSize = new System.Drawing.Size(1516, 582);
+            this.ClientSize = new System.Drawing.Size(1069, 582);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.btn_Back);

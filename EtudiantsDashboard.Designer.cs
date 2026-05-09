@@ -109,7 +109,7 @@
             this.dataGridMenu.Name = "dataGridMenu";
             this.dataGridMenu.RowHeadersWidth = 51;
             this.dataGridMenu.RowTemplate.Height = 24;
-            this.dataGridMenu.Size = new System.Drawing.Size(951, 190);
+            this.dataGridMenu.Size = new System.Drawing.Size(624, 190);
             this.dataGridMenu.TabIndex = 4;
             // 
             // label2
@@ -130,7 +130,7 @@
             this.dataGridReservations.Name = "dataGridReservations";
             this.dataGridReservations.RowHeadersWidth = 51;
             this.dataGridReservations.RowTemplate.Height = 24;
-            this.dataGridReservations.Size = new System.Drawing.Size(951, 218);
+            this.dataGridReservations.Size = new System.Drawing.Size(624, 218);
             this.dataGridReservations.TabIndex = 6;
             // 
             // label3
@@ -244,7 +244,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.ClientSize = new System.Drawing.Size(1446, 593);
+            this.ClientSize = new System.Drawing.Size(1134, 593);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.lblTotalSpent);
             this.Controls.Add(this.lblTotalReservations);
