@@ -18,7 +18,6 @@ namespace Projet_C_
             InitializeComponent();
             personnelCIN = cin;
             LoadStaffData();
-            ThemeManager.ApplyTheme(this); // Apply dark mode globally
         }
 
         private void LoadStaffData()

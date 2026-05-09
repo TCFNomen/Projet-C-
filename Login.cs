@@ -130,6 +130,10 @@ namespace Projet_C
             settings.Show();
             this.Hide(); // hides login form
         }
-        
+
+        private void Login_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Application.Exit(); // Ensure the entire application exits when the login form is closed
+        }
     }
 }

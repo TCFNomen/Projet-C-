@@ -87,5 +87,10 @@ namespace Projet_C
             log.Show();
             this.Hide(); //hiding login page in order for the new page to show up
         }
+
+        private void InterfaceAdmin_FormClosing(object sender, FormClosingEventArgs e)
+        {   
+            Application.Exit(); // Ensure the entire application exits when admin dashboard is closed
+        }
     }
 }

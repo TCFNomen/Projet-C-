@@ -124,59 +124,49 @@ namespace Projet_C
 
         private void btnModify_Click(object sender, EventArgs e)
         {
-            string cin = txtCIN.Text.Trim();
-            string nom = txtNom.Text.Trim();
-            string prenom = txtPrenom.Text.Trim();
-            string phone = txtNumero.Text.Trim();
-            string email = txtEmail.Text.Trim();
-            string poste = txtPoste.Text.Trim();
-            string password = txtPassword.Text.Trim();
-            string salary = txtSalary.Text.Trim();
-
-            // Validation
-            if (!System.Text.RegularExpressions.Regex.IsMatch(cin, @"^\d{8}$"))
+            try
             {
-                MessageBox.Show("CIN doit contenir exactement 8 chiffres.");
-                return;
-            }
-            if (!System.Text.RegularExpressions.Regex.IsMatch(phone, @"^\d{8}$"))
-            {
-                MessageBox.Show("Numéro doit contenir exactement 8 chiffres.");
-                return;
-            }
-            if (!System.Text.RegularExpressions.Regex.IsMatch(email, @"^[^@\s]+@gmail\.com$"))
-            {
-                MessageBox.Show("Email doit être au format something@gmail.com.");
-                return;
-            }
-            if (string.IsNullOrWhiteSpace(password))
-            {
-                MessageBox.Show("Veuillez entrer un mot de passe.");
-                return;
-            }
+                using (SqlConnection conn = new SqlConnection(connString))
+                {
+                    conn.Open();
+                    // 1. Double check your SQL string column names match your DB perfectly
+                    string query = @"UPDATE dbo.personnels 
+                           SET Nom=@nom, 
+                               Prenom=@prenom, 
+                               Phone=@phone, 
+                               Email=@email, 
+                               Poste=@poste, 
+                               Password=@password, 
+                               Salary=@salary 
+                           WHERE CIN=@cin";
 
-            using (SqlConnection conn = new SqlConnection(connString))
-            {
-                conn.Open();
-                SqlCommand cmd = new SqlCommand(
-                    "UPDATE dbo.personnels SET Nom=@nom, Prenom=@prenom, Phone=@phone, Email=@email, Poste=@poste, Password=@password , Salary =@salary WHERE CIN=@cin", conn);
+                    SqlCommand cmd = new SqlCommand(query, conn);
 
-                cmd.Parameters.AddWithValue("@cin", cin);
-                cmd.Parameters.AddWithValue("@nom", nom);
-                cmd.Parameters.AddWithValue("@prenom", prenom);
-                cmd.Parameters.AddWithValue("@phone", phone);
-                cmd.Parameters.AddWithValue("@email", email);
-                cmd.Parameters.AddWithValue("@poste", poste);
-                cmd.Parameters.AddWithValue("@password", password);
-                cmd.Parameters.AddWithValue("@salary", salary);
+                    // 2. Be very explicit with types to stop SQL from guessing wrong
+                    cmd.Parameters.Add("@cin", SqlDbType.VarChar).Value = txtCIN.Text.Trim();
+                    cmd.Parameters.Add("@nom", SqlDbType.NVarChar).Value = txtNom.Text.Trim();
+                    cmd.Parameters.Add("@prenom", SqlDbType.NVarChar).Value = txtPrenom.Text.Trim();
+                    cmd.Parameters.Add("@phone", SqlDbType.VarChar).Value = txtNumero.Text.Trim();
+                    cmd.Parameters.Add("@email", SqlDbType.NVarChar).Value = txtEmail.Text.Trim();
+                    cmd.Parameters.Add("@poste", SqlDbType.NVarChar).Value = txtPoste.Text.Trim();
+                    cmd.Parameters.Add("@password", SqlDbType.NVarChar).Value = txtPassword.Text.Trim();
 
-                cmd.ExecuteNonQuery();
+                    // 3. Make sure Salary is converted to a decimal before adding it
+                    decimal salaryVal = 0;
+                    decimal.TryParse(txtSalary.Text.Replace(',', '.'), out salaryVal);
+                    cmd.Parameters.Add("@salary", SqlDbType.Decimal).Value = salaryVal;
+
+                    int rows = cmd.ExecuteNonQuery();
+                    if (rows > 0) MessageBox.Show("Succès !");
+                    LoadEmployees();
+                }
             }
-
-            MessageBox.Show("Employé modifié avec succès !");
-            LoadEmployees();
+            catch (SqlException ex)
+            {
+                // This will tell you exactly which column is causing the trouble
+                MessageBox.Show("Erreur SQL : " + ex.Message);
+            }
         }
-
         private void btnBack_Click(object sender, EventArgs e)
         {
             this.Hide();

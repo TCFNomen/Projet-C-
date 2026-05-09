@@ -22,7 +22,8 @@ namespace Projet_C_
             InitializeComponent();
             etudiantCIN = cin;
             LoadTodayMenus();
-            ThemeManager.ApplyTheme(this); // Apply dark mode globally
+            UpdateStudentStats(); // Load their stats immediately
+            GetStudentName();   // <--- Add this call
         }
 
         // Load today's menus into dataGridMenu
@@ -265,6 +266,35 @@ namespace Projet_C_
                 catch (Exception ex)
                 {
                     MessageBox.Show("Erreur lors de l'export : " + ex.Message);
+                }
+            }
+        }
+        private void GetStudentName()
+        {
+            using (SqlConnection conn = new SqlConnection(connString))
+            {
+                try
+                {
+                    conn.Open();
+                    string query = "SELECT Nom, Prenom FROM dbo.etudiants WHERE CIN = @cin";
+                    SqlCommand cmd = new SqlCommand(query, conn);
+                    cmd.Parameters.AddWithValue("@cin", etudiantCIN);
+
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    if (reader.Read())
+                    {
+                        string nom = reader["Nom"].ToString();
+                        string prenom = reader["Prenom"].ToString();
+
+                        // Assuming your welcome label is named label_Welcome
+                        // If it's the one in your screenshot, it says "Bienvenue chèr(e) étudiant(e)!"
+                        label_Welcome.Text = $"Bienvenue, {prenom} {nom} !";
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // If it fails, we just keep the default text
+                    Console.WriteLine("Erreur lors de la récupération du nom: " + ex.Message);
                 }
             }
         }
