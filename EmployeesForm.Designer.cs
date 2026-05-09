@@ -59,7 +59,7 @@
             // dataGridEmployees
             // 
             this.dataGridEmployees.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridEmployees.Location = new System.Drawing.Point(327, 12);
+            this.dataGridEmployees.Location = new System.Drawing.Point(375, 11);
             this.dataGridEmployees.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dataGridEmployees.Name = "dataGridEmployees";
             this.dataGridEmployees.RowHeadersWidth = 51;
@@ -107,7 +107,7 @@
             // 
             // txtNom
             // 
-            this.txtNom.Location = new System.Drawing.Point(135, 161);
+            this.txtNom.Location = new System.Drawing.Point(158, 159);
             this.txtNom.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtNom.Name = "txtNom";
             this.txtNom.Size = new System.Drawing.Size(185, 22);
@@ -115,7 +115,7 @@
             // 
             // txtPrenom
             // 
-            this.txtPrenom.Location = new System.Drawing.Point(135, 190);
+            this.txtPrenom.Location = new System.Drawing.Point(158, 188);
             this.txtPrenom.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtPrenom.Name = "txtPrenom";
             this.txtPrenom.Size = new System.Drawing.Size(185, 22);
@@ -123,7 +123,7 @@
             // 
             // txtCIN
             // 
-            this.txtCIN.Location = new System.Drawing.Point(135, 130);
+            this.txtCIN.Location = new System.Drawing.Point(158, 128);
             this.txtCIN.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtCIN.Name = "txtCIN";
             this.txtCIN.Size = new System.Drawing.Size(185, 22);
@@ -131,7 +131,7 @@
             // 
             // txtNumero
             // 
-            this.txtNumero.Location = new System.Drawing.Point(135, 218);
+            this.txtNumero.Location = new System.Drawing.Point(158, 216);
             this.txtNumero.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtNumero.Name = "txtNumero";
             this.txtNumero.Size = new System.Drawing.Size(185, 22);
@@ -139,7 +139,7 @@
             // 
             // txtEmail
             // 
-            this.txtEmail.Location = new System.Drawing.Point(135, 245);
+            this.txtEmail.Location = new System.Drawing.Point(158, 243);
             this.txtEmail.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtEmail.Name = "txtEmail";
             this.txtEmail.Size = new System.Drawing.Size(185, 22);
@@ -147,7 +147,7 @@
             // 
             // txtPoste
             // 
-            this.txtPoste.Location = new System.Drawing.Point(135, 273);
+            this.txtPoste.Location = new System.Drawing.Point(158, 271);
             this.txtPoste.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtPoste.Name = "txtPoste";
             this.txtPoste.Size = new System.Drawing.Size(185, 22);
@@ -228,7 +228,7 @@
             // 
             // txtPassword
             // 
-            this.txtPassword.Location = new System.Drawing.Point(135, 302);
+            this.txtPassword.Location = new System.Drawing.Point(158, 302);
             this.txtPassword.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtPassword.Name = "txtPassword";
             this.txtPassword.Size = new System.Drawing.Size(185, 22);
@@ -246,7 +246,7 @@
             // 
             // txtSalary
             // 
-            this.txtSalary.Location = new System.Drawing.Point(135, 330);
+            this.txtSalary.Location = new System.Drawing.Point(158, 328);
             this.txtSalary.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtSalary.Name = "txtSalary";
             this.txtSalary.Size = new System.Drawing.Size(185, 22);
@@ -287,7 +287,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.ClientSize = new System.Drawing.Size(1197, 564);
+            this.ClientSize = new System.Drawing.Size(1246, 564);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.label8);
