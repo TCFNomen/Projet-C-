@@ -5,6 +5,8 @@ using System.Data;
 using System.Data.SqlClient;
 using System.IO;
 using System.Windows.Forms;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
 
 namespace Projet_C_
 {
@@ -234,38 +236,62 @@ namespace Projet_C_
             }
 
             SaveFileDialog sfd = new SaveFileDialog();
-            sfd.Filter = "Fichier CSV (*.csv)|*.csv";
-            sfd.FileName = $"Historique_{etudiantCIN}.csv";
+            sfd.Filter = "Fichier PDF (*.pdf)|*.pdf";
+            sfd.FileName = $"Historique_{etudiantCIN}.pdf";
 
             if (sfd.ShowDialog() == DialogResult.OK)
             {
                 try
                 {
-                    using (StreamWriter sw = new StreamWriter(sfd.FileName, false, System.Text.Encoding.UTF8))
-                    {
-                        // CSV Header
-                        sw.WriteLine("Date;Plat Principal;Dessert;Boisson;Prix");
+                    // 1. Création du document PDF (Format A4)
+                    Document pdfDoc = new Document(PageSize.A4, 10f, 10f, 10f, 0f);
 
-                        // Loop through the DataGridView rows
+                    using (FileStream stream = new FileStream(sfd.FileName, FileMode.Create))
+                    {
+                        PdfWriter.GetInstance(pdfDoc, stream);
+                        pdfDoc.Open();
+
+                        // 2. Ajout d'un titre au document
+                        Paragraph title = new Paragraph($"Historique des Réservations - CIN: {etudiantCIN}\n\n");
+                        title.Alignment = Element.ALIGN_CENTER;
+                        pdfDoc.Add(title);
+
+                        // 3. Création du tableau PDF (5 colonnes pour correspondre au DataGrid)
+                        PdfPTable pdfTable = new PdfPTable(dataGridReservations.Columns.Count);
+                        pdfTable.WidthPercentage = 100;
+
+                        // 4. Ajout des en-têtes du tableau
+                        foreach (DataGridViewColumn column in dataGridReservations.Columns)
+                        {
+                            PdfPCell cell = new PdfPCell(new Phrase(column.HeaderText));
+                            cell.BackgroundColor = new BaseColor(240, 240, 240); // Gris clair
+                            cell.HorizontalAlignment = Element.ALIGN_CENTER;
+                            pdfTable.AddCell(cell);
+                        }
+
+                        // 5. Ajout des lignes de données
                         foreach (DataGridViewRow row in dataGridReservations.Rows)
                         {
                             if (!row.IsNewRow)
                             {
-                                string date = Convert.ToDateTime(row.Cells["DateReservation"].Value).ToString("dd/MM/yyyy");
-                                string plat = row.Cells["PlatPrincipal"].Value.ToString();
-                                string dessert = row.Cells["Dessert"].Value.ToString();
-                                string boisson = row.Cells["Boisson"].Value.ToString();
-                                string prix = row.Cells["Prix"].Value.ToString();
-
-                                sw.WriteLine($"{date};{plat};{dessert};{boisson};{prix}");
+                                foreach (DataGridViewCell cell in row.Cells)
+                                {
+                                    string cellValue = cell.Value?.ToString() ?? "";
+                                    pdfTable.AddCell(new Phrase(cellValue));
+                                }
                             }
                         }
+
+                        pdfDoc.Add(pdfTable);
+                        pdfDoc.Close();
+                        stream.Close();
                     }
-                    MessageBox.Show("Historique exporté avec succès !");
+
+                    MessageBox.Show("Historique exporté en PDF avec succès !");
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Erreur lors de l'export : " + ex.Message);
+                    MessageBox.Show("Erreur lors de l'exportation PDF : " + ex.Message);
                 }
             }
         }
