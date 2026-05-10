@@ -49,7 +49,6 @@
             this.label1.Size = new System.Drawing.Size(195, 85);
             this.label1.TabIndex = 0;
             this.label1.Text = "Admin";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // btn_ConsEtu
             // 
@@ -152,7 +151,6 @@
             this.Name = "InterfaceAdmin";
             this.Text = "InterfaceAdmin";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.InterfaceAdmin_FormClosing);
-            this.Load += new System.EventHandler(this.InterfaceAdmin_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
